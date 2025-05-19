@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tu Agenda Interactiva</title>
+    <meta name="theme-color" content="#4a6fa5">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="app-header">
+            <h1><i class="fas fa-calendar-alt"></i> Tu Agenda Interactiva</h1>
+        </header>
+
+        <div class="doctors-tabs">
+            <div class="tabs-header">
+                <button id="addDoctorBtn" class="btn-icon" title="Agregar doctor">
+                    <i class="fas fa-user-plus"></i>
+                </button>
+                <div class="tabs-container" id="doctorsTabs">
+                    <!-- Pestañas de doctores se generarán aquí -->
+                </div>
+            </div>
+        </div>
+
+        <div class="view-switcher">
+            <button class="btn-secondary active" data-view="list">
+                <i class="fas fa-list"></i> Lista
+            </button>
+            <button class="btn-secondary" data-view="calendar">
+                <i class="fas fa-calendar"></i> Calendario
+            </button>
+        </div>
+
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Buscar por nombre o fecha...">
+            <button id="searchBtn" class="btn-secondary">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+
+        <!-- Vista de lista -->
+        <div id="listView" class="view-content active">
+            <div class="appointments-container">
+                <div id="appointmentsList" class="appointments-list">
+                    <!-- Las citas se cargarán aquí dinámicamente -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Vista de calendario -->
+        <div id="calendarView" class="view-content">
+            <div class="calendar-controls">
+                <button id="prevMonthBtn" class="btn-icon">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <h2 id="currentMonth"></h2>
+                <button id="nextMonthBtn" class="btn-icon">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            <div id="calendarGrid" class="calendar-grid">
+                <!-- Calendario se generará aquí -->
+            </div>
+        </div>
+
+        <button id="addAppointmentBtn" class="btn-floating">
+            <i class="fas fa-plus"></i>
+        </button>
+    </div>
+
+    <!-- Modal para agregar/editar citas -->
+    <div id="appointmentModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2 id="modalTitle">Nueva Cita</h2>
+            <form id="appointmentForm">
+                <input type="hidden" id="appointmentId">
+                
+                <div class="form-group">
+                    <label for="appointmentDoctor">Doctor</label>
+                    <select id="appointmentDoctor" required>
+                        <!-- Opciones se llenarán dinámicamente -->
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="patientName">Nombre del Paciente</label>
+                    <input type="text" id="patientName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="appointmentDate">Fecha</label>
+                    <input type="date" id="appointmentDate" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="appointmentTime">Hora</label>
+                    <input type="time" id="appointmentTime" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="appointmentReason">Motivo</label>
+                    <textarea id="appointmentReason" rows="3" required></textarea>
+                </div>
+                
+                <button type="submit" class="btn-primary">Guardar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para agregar doctor -->
+    <div id="doctorModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Agregar Doctor</h2>
+            <form id="doctorForm">
+                <div class="form-group">
+                    <label for="doctorName">Nombre del Doctor</label>
+                    <input type="text" id="doctorName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="doctorSpecialty">Especialidad</label>
+                    <input type="text" id="doctorSpecialty" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="doctorColor">Color en calendario</label>
+                    <input type="color" id="doctorColor" value="#4a6fa5">
+                </div>
+                
+                <button type="submit" class="btn-primary">Agregar Doctor</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notificación flotante -->
+    <div id="notification" class="notification"></div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
